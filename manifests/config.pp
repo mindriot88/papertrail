@@ -1,0 +1,3 @@
+class papertrail::config{
+  
+}
