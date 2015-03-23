@@ -9,7 +9,7 @@ class papertrail::service{
           ensure => 'link',
           target => '/lib/init/upstart-job',
           force  => true,
-          notify => Service['remote_syslog'],
+          notify  => Service[$service_name],
       }
 
       file { "/etc/init/${service_name}.conf":
