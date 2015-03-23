@@ -6,5 +6,5 @@ Puppet module for managing remote_syslog2 and in the future rsyslog
     papertrail{ 'install':
       log_host               => 'logs1234.papertrailapp.com',
       log_port               => '12345',
-      extra_logs			 => ["/var/log/apache2/access.log"]
+      extra_logs			 => ["/var/log/apache2/access.log"],
     }
