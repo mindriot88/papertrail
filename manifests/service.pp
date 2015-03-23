@@ -1,3 +1,7 @@
+# Class: papertrail::service
+#
+# This class manages the service which runs remote_syslog
+#
 class papertrail::service{
   $service_name = 'remote_syslog'
   case $::osfamily {
@@ -9,7 +13,7 @@ class papertrail::service{
           ensure => 'link',
           target => '/lib/init/upstart-job',
           force  => true,
-          notify  => Service[$service_name],
+          notify => Service[$service_name],
       }
 
       file { "/etc/init/${service_name}.conf":
@@ -20,13 +24,14 @@ class papertrail::service{
       }
     }
     'RedHat': {
-      if ($::operatingsystem == 'Fedora') or (versioncmp($::operatingsystemrelease, '7.0') >= 0) {
+      if ($::operatingsystem == 'Fedora')
+      or (versioncmp($::operatingsystemrelease, '7.0') >= 0) {
         file { "/etc/systemd/system/${service_name}.service":
-	        ensure  => present,
-	        force   => true,
-	        content => template("papertrail/etc/systemd/system/${service_name}.systemd.erb"),
-	        notify  => Service['remote_syslog'],
-	      }
+          ensure  => present,
+          force   => true,
+          content => template("papertrail/etc/systemd/system/${service_name}.systemd.erb"),
+          notify  => Service['remote_syslog'],
+        }
       } else {
         file { "/etc/init.d/${service_name}":
           ensure  => present,
@@ -55,5 +60,5 @@ class papertrail::service{
     hasrestart => $hasrestart,
     provider   => $provider,
   }
- 
+
 }

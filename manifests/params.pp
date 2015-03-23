@@ -1,3 +1,7 @@
+# Class: papertrail::params
+#
+# This class manages papertrail parameters
+#
 class papertrail::params{
   $log_port               = ''
   $log_host               = ''

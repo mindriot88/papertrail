@@ -5,7 +5,8 @@
 # Parameters: 
 #
 # [*log_port*]
-#  The port number assigned by papertrail. Should reflect your the port in your account
+#  The port number assigned by papertrail
+#  This should reflect your the port in your account
 #  There is no default as it should be changed in any situation
 #
 # [*log_host*]
