@@ -5,7 +5,7 @@ class papertrail::service{
       $hasstatus     = true
       $hasrestart    = false
 
-      file { '/etc/init.d/remote_syslog':
+      file { "/etc/init.d/${service_name}":
           ensure => 'link',
           target => '/lib/init/upstart-job',
           force  => true,
@@ -15,23 +15,23 @@ class papertrail::service{
       file { "/etc/init/${service_name}.conf":
         ensure  => present,
         force   => true,
-        content => template('papertrail/etc/init/remote_syslog.upstart.erb'),
-        notify  => Service['remote_syslog'],
+        content => template("papertrail/etc/init/${service_name}.upstart.erb"),
+        notify  => Service[$service_name],
       }
     }
     'RedHat': {
       if ($::operatingsystem == 'Fedora') or (versioncmp($::operatingsystemrelease, '7.0') >= 0) {
-        file { '/etc/systemd/system/remote_syslog.service':
+        file { "/etc/systemd/system/${service_name}.service":
 	        ensure  => present,
 	        force   => true,
-	        content => template("papertrail/etc/systemd/system/remote_syslog.systemd.erb"),
+	        content => template("papertrail/etc/systemd/system/${service_name}.systemd.erb"),
 	        notify  => Service['remote_syslog'],
 	      }
       } else {
-        file { '/etc/init.d/remote_syslog':
+        file { "/etc/init.d/${service_name}":
           ensure  => present,
           force   => true,
-          content => template("papertrail/etc/init.d/remote_syslog.initd.erb"),
+          content => template("papertrail/etc/init.d/${service_name}.initd.erb"),
           notify  => Service['remote_syslog'],
           mode    => '0755'
         }
@@ -46,8 +46,8 @@ class papertrail::service{
     'Ubuntu' => 'upstart',
     default  => undef,
   }
-
-  service { 'remote_syslog':
+  
+  service { $service_name:
     ensure     => running,
     name       => $service_name,
     enable     => true,
