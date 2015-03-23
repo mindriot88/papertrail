@@ -30,6 +30,18 @@
       ]
     },
     {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6"
+      ]
+    },
+    {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "14.04"
@@ -50,5 +62,5 @@
   "source": "https://github.com/jschilperoord/papertrail.git",
   "summary": "Puppet module for managing remote_syslog2 and optionally rsyslog",
   "tags": [],
-  "version": "0.1.0"
+  "version": "0.1.3"
 }
